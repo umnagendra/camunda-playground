@@ -13,7 +13,7 @@ This is a simple spring boot app that illustrates the use of [Camunda BPM]() to 
 A simple BPMN workflow is created (using [Camunda Modeler]()) that has service tasks to obtain random numbers and check for even numbers.
 See [random_workflow.bpmn](src/main/resources/random_workflow.bpmn)
 
-![image](https://user-images.githubusercontent.com/990210/75332381-498ec780-58aa-11ea-8694-44c820b81442.png)
+![image](https://user-images.githubusercontent.com/990210/75338406-abecc580-58b4-11ea-9ab3-405537a4ed99.png)
 
 ## Build
 `mvn clean install`
