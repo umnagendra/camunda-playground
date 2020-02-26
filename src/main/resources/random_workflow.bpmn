@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0641ehj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
   <bpmn:process id="RandomWorkflow" name="Random Workflow" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1" name="Request Received">
+    <bpmn:startEvent id="StartEvent_1" name="Request Received" camunda:asyncBefore="true">
       <bpmn:outgoing>SequenceFlow_0l52z0q</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0l52z0q" sourceRef="StartEvent_1" targetRef="Task_0c7arwj" />
