@@ -23,6 +23,8 @@ This application requires a MySQL database for use by Camunda BPM
 Refer [Running MySQL as a Docker Container](#running-mysql-as-a-docker-container) for details.
 
 ```shell
+export SERVER_PORT=<port number where the server will listen for incoming REST API requests>
+export DB_HOST=<host where MySQL DB is running (could be localhost)>
 export DB_USERNAME=<db username>
 export DB_PASSWORD=<db password>
 mvn spring-boot:run
