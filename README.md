@@ -2,10 +2,37 @@
 Learning Camunda BPM
 
 ## Overview
+This is a simple spring boot app that illustrates the use of [Camunda BPM]() to execute workflows.
+
+## Design
+- Embedded Camunda BPM engine
+- MySQL as the persistence layer (data access via spring JPA)
+- REST API to trigger workflows
+
+### Workflows 
+A simple BPMN workflow is created (using [Camunda Modeler]()) that has service tasks to obtain random numbers and check for even numbers.
+See [random_workflow.bpmn](src/main/resources/random_workflow.bpmn)
+
+![image](https://user-images.githubusercontent.com/990210/75332381-498ec780-58aa-11ea-8694-44c820b81442.png)
 
 ## Build
+`mvn clean install`
 
 ## Run
+This application requires a MySQL database for use by Camunda BPM
+Refer [Running MySQL as a Docker Container](#running-mysql-as-a-docker-container) for details.
+
+```shell
+export DB_USERNAME=<db username>
+export DB_PASSWORD=<db password>
+mvn spring-boot:run
+```
+
+### Invoking APIs to start a workflow
+Simply do a `GET http://<host>:<port>/start-workflow/<WorkflowKey>`    
+The actual process instance is executed asynchronously, and the client receives a `202 ACCEPTED` response.    
+Follow logs on STDOUT for progress of the triggered workflow.
+
 ### Running MySQL as a Docker Container
 ```
 docker rm -f mysql && \
@@ -27,7 +54,3 @@ To create a database, (say `camunda_playground` for use by camunda BPM) use
 create database camunda_playground;
 use camunda_playground;
 ```
-
-### Invoking APIs to start a workflow
-Simply do a `GET http://<host>:<port>/start-workflow/<WorkflowKey>`
-The actual process instance is executed asynchronously, and the client receives a `202 ACCEPTED` response. Follow logs on STDOUT for progress of the triggered workflow.
