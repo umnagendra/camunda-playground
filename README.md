@@ -27,3 +27,7 @@ To create a database, (say `camunda_playground` for use by camunda BPM) use
 create database camunda_playground;
 use camunda_playground;
 ```
+
+### Invoking APIs to start a workflow
+Simply do a `GET http://<host>:<port>/start-workflow/<WorkflowKey>`
+The actual process instance is executed asynchronously, and the client receives a `202 ACCEPTED` response. Follow logs on STDOUT for progress of the triggered workflow.
