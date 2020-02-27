@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+import static xyz.nagendra.camundaplayground.Constants.*;
+
 @Component
 public class GetRandomNumberDelegate implements JavaDelegate {
 
@@ -22,7 +24,8 @@ public class GetRandomNumberDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        LOGGER.info("Inside GetRandomNumberDelegate ...");
+        LOGGER.info("Inside GetRandomNumberDelegate ... started by {} @ {}",
+                delegateExecution.getVariable(VAR_NAME_STARTED_BY), delegateExecution.getVariable(VAR_NAME_STARTED_AT));
         getRandomNumber()
                 .onSuccess(num -> {
                     boolean isEven = (num % 2 == 0);
