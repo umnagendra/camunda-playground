@@ -10,7 +10,7 @@ This is a simple spring boot app that illustrates the use of [Camunda BPM]() to 
 - REST API to trigger workflows
 
 ### Workflows 
-A simple BPMN workflow is created (using [Camunda Modeler]()) that has service tasks to obtain random numbers and check for even numbers.
+A simple BPMN workflow is created (using [Camunda Modeler]()) that has service tasks to obtain random numbers and check for even numbers.    
 See [random_workflow.bpmn](src/main/resources/random_workflow.bpmn)
 
 ![image](https://user-images.githubusercontent.com/990210/75338406-abecc580-58b4-11ea-9ab3-405537a4ed99.png)
@@ -19,7 +19,7 @@ See [random_workflow.bpmn](src/main/resources/random_workflow.bpmn)
 `mvn clean install`
 
 ## Run
-This application requires a MySQL database for use by Camunda BPM
+This application requires a MySQL database for use by Camunda BPM    
 Refer [Running MySQL as a Docker Container](#running-mysql-as-a-docker-container) for details.
 
 ```shell
@@ -56,3 +56,7 @@ To create a database, (say `camunda_playground` for use by camunda BPM) use
 create database camunda_playground;
 use camunda_playground;
 ```
+
+### Clustering
+Clustering the camunda engine in this app is as simple as running multiple instances of this app, all of which should point to a single instance of MySQL.    
+When multiple instances of this app are run as a cluster, ongoing tasks initiated in any app will be taken over and continued by another running instance in the cluster.
