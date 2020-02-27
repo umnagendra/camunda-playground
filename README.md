@@ -30,8 +30,16 @@ export DB_PASSWORD=<db password>
 mvn spring-boot:run
 ```
 
-### Invoking APIs to start a workflow
-Simply do a `GET http://<host>:<port>/start-workflow/<WorkflowKey>`    
+### Invoking API to start a workflow
+Simply do a `POST` to `http://<host>:<port>/start-workflow` with the below JSON payload.
+
+```javascript
+{
+	"workflowKey": "<Workflow Key>",
+	"startedBy": "<Your Name>"
+}
+```    
+
 The actual process instance is executed asynchronously, and the client receives a `202 ACCEPTED` response.    
 Follow logs on STDOUT for progress of the triggered workflow.
 

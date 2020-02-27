@@ -6,9 +6,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.nagendra.camundaplayground.api.model.WorkflowRequest;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
+import static xyz.nagendra.camundaplayground.Constants.*;
 
 @RestController
 public class WorkflowController {
@@ -22,17 +29,24 @@ public class WorkflowController {
         this.runtimeService = runtimeService;
     }
 
-    @GetMapping("/start-workflow/{workflow_key}")
-    public ResponseEntity<Object> startWorkflow(@PathVariable("workflow_key") String workflowKey) {
-        LOGGER.info("Received GET request to start workflow: {}", workflowKey);
+    @PostMapping(value = "/start-workflow")
+    public ResponseEntity<Object> startWorkflow(@RequestBody WorkflowRequest workflowRequest) {
+        LOGGER.info("Received POST request: {}", workflowRequest);
 
         // The process instance must be an asynchronously instantiated by adding
         // 'camunda:asyncBefore' extension attribute on a process-level start event.
         //
         // Else, the entire process execution will block the client (web request) thread.
-        runtimeService.startProcessInstanceByKey(workflowKey);
+        runtimeService.startProcessInstanceByKey(workflowRequest.getWorkflowKey(), createProcessVariables(workflowRequest));
         return ResponseEntity.accepted()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("{\"status\": \"started\"}");
+    }
+
+    private Map<String, Object> createProcessVariables(WorkflowRequest workflowRequest) {
+        Map<String, Object> varMap = new HashMap<>();
+        varMap.put(VAR_NAME_STARTED_BY, workflowRequest.getStartedBy());
+        varMap.put(VAR_NAME_STARTED_AT, LocalDateTime.now());
+        return varMap;
     }
 }
