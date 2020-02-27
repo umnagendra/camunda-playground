@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class RandomWorkflowTest {
@@ -20,6 +19,12 @@ public class RandomWorkflowTest {
     @Autowired
     TaskService taskService;
 
+    /**
+     * This is more an "integration test", rather than a unit test because
+     * it executes the entire workflow, and we need to assert upon its completion
+     *
+     * @throws InterruptedException
+     */
     @Test
     public void startRandomWorkflow() throws InterruptedException {
         ProcessInstance pi = runtimeService.startProcessInstanceByKey("RandomWorkflow");
