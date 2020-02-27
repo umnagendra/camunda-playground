@@ -9,9 +9,11 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+@Component
 public class GetRandomNumberDelegate implements JavaDelegate {
 
     private static final String RANDOM_ORG_URL = "https://www.random.org/integers/?num=1&min=1&max=1000&col=1&base=10&format=plain&rnd=new";

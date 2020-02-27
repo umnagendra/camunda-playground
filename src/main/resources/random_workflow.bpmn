@@ -5,7 +5,7 @@
       <bpmn:outgoing>SequenceFlow_0l52z0q</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0l52z0q" sourceRef="StartEvent_1" targetRef="Task_0c7arwj" />
-    <bpmn:serviceTask id="Task_0c7arwj" name="Request for a random number from RANDOM.ORG" camunda:class="xyz.nagendra.camundaplayground.tasks.GetRandomNumberDelegate">
+    <bpmn:serviceTask id="Task_0c7arwj" name="Request for a random number from RANDOM.ORG" camunda:delegateExpression="#{getRandomNumberDelegate}">
       <bpmn:incoming>SequenceFlow_0l52z0q</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0u82krk</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1vb3w6y</bpmn:incoming>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0kneeu8" name="Is Not Even?" sourceRef="ExclusiveGateway_110xf01" targetRef="Task_1c10kgn">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isEven == false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Task_1rhd7ea" name="Print a success msg" camunda:class="xyz.nagendra.camundaplayground.tasks.PrintSuccessDelegate">
+    <bpmn:serviceTask id="Task_1rhd7ea" name="Print a success msg" camunda:delegateExpression="#{printSuccessDelegate}">
       <bpmn:incoming>SequenceFlow_15f8yzc</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1tzxd2w</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -32,7 +32,7 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1tzxd2w" sourceRef="Task_1rhd7ea" targetRef="EndEvent_0g8t7s8" />
     <bpmn:sequenceFlow id="SequenceFlow_0u82krk" name="Get another random number" sourceRef="Task_1c10kgn" targetRef="Task_0c7arwj" />
-    <bpmn:serviceTask id="Task_1c10kgn" name="Print a failure msg" camunda:class="xyz.nagendra.camundaplayground.tasks.PrintFailureDelegate">
+    <bpmn:serviceTask id="Task_1c10kgn" name="Print a failure msg" camunda:delegateExpression="#{printFailureDelegate}">
       <bpmn:incoming>SequenceFlow_0kneeu8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0u82krk</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -42,7 +42,7 @@
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0tdtn2m" name="Error in getting&#10;Random Number" sourceRef="IntermediateThrowEvent_1tim1oa" targetRef="Task_0dtu1ky" />
     <bpmn:sequenceFlow id="SequenceFlow_1vb3w6y" name="Try Again&#10;&#10;" sourceRef="Task_0dtu1ky" targetRef="Task_0c7arwj" />
-    <bpmn:serviceTask id="Task_0dtu1ky" name="Print Error Message" camunda:class="xyz.nagendra.camundaplayground.tasks.ErrorHandlingDelegate">
+    <bpmn:serviceTask id="Task_0dtu1ky" name="Print Error Message" camunda:delegateExpression="#{errorHandlingDelegate}">
       <bpmn:incoming>SequenceFlow_0tdtn2m</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1vb3w6y</bpmn:outgoing>
     </bpmn:serviceTask>
