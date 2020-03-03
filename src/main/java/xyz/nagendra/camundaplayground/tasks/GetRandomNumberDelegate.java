@@ -31,8 +31,8 @@ public class GetRandomNumberDelegate implements JavaDelegate {
                     boolean isEven = (num % 2 == 0);
                     LOGGER.info("Num = {}, isEven = {}", num, isEven);
 
-                    delegateExecution.setVariable("num", num);
-                    delegateExecution.setVariable("isEven", isEven);
+                    delegateExecution.setVariable(VAR_NAME_NUM, num);
+                    delegateExecution.setVariable(VAR_NAME_IS_EVEN, isEven);
                 })
                 .onFailure(throwable -> {
                     LOGGER.error("Failed to get random number from random.org", throwable);

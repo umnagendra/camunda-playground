@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_NUM;
 import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_STARTED_AT;
 import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_STARTED_BY;
 
@@ -18,7 +19,7 @@ public class PrintSuccessDelegate implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         LOGGER.info("Inside PrintSuccessDelegate ... started by = {} @ {}",
                 delegateExecution.getVariable(VAR_NAME_STARTED_BY), delegateExecution.getVariable(VAR_NAME_STARTED_AT));
-        LOGGER.info("SUCCESS! Received an even number: {}", delegateExecution.getVariable("num"));
+        LOGGER.info("SUCCESS! Received an even number: {}", delegateExecution.getVariable(VAR_NAME_NUM));
         LOGGER.info("PrintSuccessDelegate done");
     }
 }
