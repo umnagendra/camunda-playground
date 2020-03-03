@@ -7,13 +7,13 @@ This is a simple spring boot app that illustrates the use of [Camunda BPM]() to 
 ## Design
 - Embedded Camunda BPM engine
 - MySQL as the persistence layer (data access via spring JPA)
-- REST API to trigger workflows
+- REST API to trigger workflows, approve actions in workflows
 
 ### Workflows 
 A simple BPMN workflow is created (using [Camunda Modeler]()) that has service tasks to obtain random numbers and check for even numbers.    
 See [random_workflow.bpmn](src/main/resources/random_workflow.bpmn)
 
-![image](https://user-images.githubusercontent.com/990210/75338406-abecc580-58b4-11ea-9ab3-405537a4ed99.png)
+![image](https://user-images.githubusercontent.com/990210/75753291-77fc1f00-5d50-11ea-9a45-ddda731d10bc.png)
 
 ## Build
 `mvn clean install`
@@ -30,18 +30,31 @@ export DB_PASSWORD=<db password>
 mvn spring-boot:run
 ```
 
-### Invoking API to start a workflow
+### APIs
+#### Start a workflow
 Simply do a `POST` to `http://<host>:<port>/start-workflow` with the below JSON payload.
 
 ```javascript
 {
 	"workflowKey": "<Workflow Key>",
+    "businessKey": "<Any unique custom key>",
 	"startedBy": "<Your Name>"
 }
 ```    
 
 The actual process instance is executed asynchronously, and the client receives a `202 ACCEPTED` response.    
 Follow logs on STDOUT for progress of the triggered workflow.
+
+#### Approve a workflow _(waiting to get another random number)_
+Simply do a `POST` to `http://<host>:<port>/approve-workflow` with the below JSON payload.
+
+```javascript
+{
+	"workflowKey": "<Workflow key of process waiting>",
+    "businessKey": "<Unique custom key of process waiting>",
+	"approvedBy": "<Your Name>"
+}
+```
 
 ### Running MySQL as a Docker Container
 ```
