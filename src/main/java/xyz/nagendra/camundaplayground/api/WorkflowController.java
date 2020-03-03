@@ -9,15 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.nagendra.camundaplayground.api.model.ApprovalRequest;
 import xyz.nagendra.camundaplayground.api.model.WorkflowRequest;
+import xyz.nagendra.camundaplayground.api.model.WorkflowResponse;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static xyz.nagendra.camundaplayground.Constants.*;
 
@@ -96,6 +100,13 @@ public class WorkflowController {
                 .body("{\"status\": \"approved\"}");
     }
 
+    @GetMapping(value = "/workflow")
+    public ResponseEntity<List<WorkflowResponse>> listProcessInstances() {
+        List<ProcessInstance> processInstances = runtimeService.createProcessInstanceQuery().list();
+        List<WorkflowResponse> workflowResponses = processInstances.stream().map(processInstance -> new WorkflowResponse(processInstance.getProcessDefinitionId().split(":")[0], processInstance.getBusinessKey(), !processInstance.isEnded())).collect(Collectors.toList());
+        return ResponseEntity.ok(workflowResponses);
+    }
+
     private Map<String, Object> createProcessVariables(WorkflowRequest workflowRequest) {
         Map<String, Object> varMap = new HashMap<>();
         varMap.put(VAR_NAME_STARTED_BY, workflowRequest.getStartedBy());
@@ -117,7 +128,3 @@ public class WorkflowController {
                 .active().singleResult();
     }
 }
-
-// TODO:
-// get API - list of process instances waiting for approval (approvedBy, plus existing vars)
-// single periodic workflow across clusters
