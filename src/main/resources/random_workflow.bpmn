@@ -7,8 +7,8 @@
     <bpmn:sequenceFlow id="SequenceFlow_0l52z0q" sourceRef="StartEvent_1" targetRef="Task_0c7arwj" />
     <bpmn:serviceTask id="Task_0c7arwj" name="Request for a random number from RANDOM.ORG" camunda:delegateExpression="#{getRandomNumberDelegate}">
       <bpmn:incoming>SequenceFlow_0l52z0q</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_0u82krk</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1vb3w6y</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0mjffdf</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1l47ujo</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:exclusiveGateway id="ExclusiveGateway_110xf01">
@@ -31,10 +31,9 @@
       <bpmn:incoming>SequenceFlow_1tzxd2w</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1tzxd2w" sourceRef="Task_1rhd7ea" targetRef="EndEvent_0g8t7s8" />
-    <bpmn:sequenceFlow id="SequenceFlow_0u82krk" name="Get another random number" sourceRef="Task_1c10kgn" targetRef="Task_0c7arwj" />
     <bpmn:serviceTask id="Task_1c10kgn" name="Print a failure msg" camunda:delegateExpression="#{printFailureDelegate}">
       <bpmn:incoming>SequenceFlow_0kneeu8</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0u82krk</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_10u77e6</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:boundaryEvent id="IntermediateThrowEvent_1tim1oa" attachedToRef="Task_0c7arwj">
       <bpmn:outgoing>SequenceFlow_0tdtn2m</bpmn:outgoing>
@@ -46,7 +45,19 @@
       <bpmn:incoming>SequenceFlow_0tdtn2m</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1vb3w6y</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_10u77e6" name="Wait for approval to get another random number" sourceRef="Task_1c10kgn" targetRef="Task_Wait_Approval" />
+    <bpmn:receiveTask id="Task_Wait_Approval" name="Get Approval for Another Random Number" messageRef="Message_16yrcju">
+      <bpmn:incoming>SequenceFlow_10u77e6</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0fjneho</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0fjneho" sourceRef="Task_Wait_Approval" targetRef="Task_1ilad67" />
+    <bpmn:sequenceFlow id="SequenceFlow_0mjffdf" name="Get Another Random Number" sourceRef="Task_1ilad67" targetRef="Task_0c7arwj" />
+    <bpmn:serviceTask id="Task_1ilad67" name="Print Approval Msg" camunda:delegateExpression="#{printApprovalDelegate}">
+      <bpmn:incoming>SequenceFlow_0fjneho</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0mjffdf</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
+  <bpmn:message id="Message_16yrcju" name="MSG_APPROVE_ANOTHER_RANDOM_NUMBER" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="RandomWorkflow">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
@@ -98,15 +109,6 @@
         <di:waypoint x="620" y="180" />
         <di:waypoint x="672" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0u82krk_di" bpmnElement="SequenceFlow_0u82krk">
-        <di:waypoint x="570" y="450" />
-        <di:waypoint x="570" y="490" />
-        <di:waypoint x="320" y="490" />
-        <di:waypoint x="320" y="327" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="411" y="476" width="78" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1hzul0m_di" bpmnElement="Task_1c10kgn">
         <dc:Bounds x="520" y="370" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -130,6 +132,31 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1htell2_di" bpmnElement="Task_0dtu1ky">
         <dc:Bounds x="230" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_10u77e6_di" bpmnElement="SequenceFlow_10u77e6">
+        <di:waypoint x="570" y="450" />
+        <di:waypoint x="570" y="580" />
+        <di:waypoint x="370" y="580" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="458" y="530" width="83" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ReceiveTask_0sbmmhf_di" bpmnElement="Task_Wait_Approval">
+        <dc:Bounds x="270" y="540" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0fjneho_di" bpmnElement="SequenceFlow_0fjneho">
+        <di:waypoint x="320" y="540" />
+        <di:waypoint x="320" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0mjffdf_di" bpmnElement="SequenceFlow_0mjffdf">
+        <di:waypoint x="320" y="410" />
+        <di:waypoint x="320" y="327" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="228" y="351" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1fqczzz_di" bpmnElement="Task_1ilad67">
+        <dc:Bounds x="270" y="410" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
