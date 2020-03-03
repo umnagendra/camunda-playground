@@ -36,9 +36,9 @@ Simply do a `POST` to `http://<host>:<port>/start-workflow` with the below JSON 
 
 ```javascript
 {
-	"workflowKey": "<Workflow Key>",
+    "workflowKey": "<Workflow Key>",
     "businessKey": "<Any unique custom key>",
-	"startedBy": "<Your Name>"
+    "startedBy": "<Your Name>"
 }
 ```    
 
@@ -50,10 +50,34 @@ Simply do a `POST` to `http://<host>:<port>/approve-workflow` with the below JSO
 
 ```javascript
 {
-	"workflowKey": "<Workflow key of process waiting>",
+    "workflowKey": "<Workflow key of process waiting>",
     "businessKey": "<Unique custom key of process waiting>",
-	"approvedBy": "<Your Name>"
+    "approvedBy": "<Your Name>"
 }
+```
+
+#### List (GET) all workflows
+Simply do a `GET` to `http://<host>:<port>/workflow` and expect a JSON response.
+
+```javascript
+[
+    {
+        workflowKey: "RandomWorkflow",
+        businessKey: "Tenant1583236658",
+        active: true
+    },
+    {
+        workflowKey: "RandomWorkflow",
+        businessKey: "Tenant1583236676",
+        active: true
+    },
+    {
+        workflowKey: "RandomWorkflow",
+        businessKey: "Tenant1583236677",
+        active: true
+    },
+    . . .
+]
 ```
 
 ### Running MySQL as a Docker Container
