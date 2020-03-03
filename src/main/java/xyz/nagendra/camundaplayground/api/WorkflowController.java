@@ -39,7 +39,10 @@ public class WorkflowController {
         // Therefore, we need explicit validation if we need to ensure that only one active
         // process instance runs for each business key.
         // See https://forum.camunda.org/t/how-does-business-key-works/2170/5
-        if (runtimeService.createProcessInstanceQuery().processInstanceBusinessKey(workflowRequest.getBusinessKey()).active().count() > 0) {
+        if (runtimeService.createProcessInstanceQuery()
+                .processDefinitionKey(workflowRequest.getWorkflowKey())
+                .processInstanceBusinessKey(workflowRequest.getBusinessKey())
+                .active().count() > 0) {
             LOGGER.error("CONFLICT: Another active process instance with business key {} already exists in the system.", workflowRequest.getBusinessKey());
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .contentType(MediaType.APPLICATION_JSON)
