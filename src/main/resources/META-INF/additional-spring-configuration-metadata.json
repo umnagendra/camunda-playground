@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "alphavantage.apikey",
+      "type": "java.lang.String",
+      "description": "API Key issued by https://www.alphavantage.co to authorize API requests"
+    },
+    {
+      "name": "stock.symbols",
+      "type": "java.lang.String",
+      "description": "Stock ticker symbols to get quotes for"
+    }
+  ]
+}
