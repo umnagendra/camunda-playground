@@ -3,6 +3,7 @@ package xyz.nagendra.camundaplayground.tasks;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.impl.pvm.runtime.ExecutionImpl;
 import org.junit.jupiter.api.Test;
+import xyz.nagendra.camundaplayground.tasks.randomworkflow.GetRandomNumberDelegate;
 
 import static org.junit.jupiter.api.Assertions.*;
 

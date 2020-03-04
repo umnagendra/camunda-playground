@@ -1,4 +1,4 @@
-package xyz.nagendra.camundaplayground.tasks;
+package xyz.nagendra.camundaplayground.tasks.randomworkflow;
 
 import io.vavr.control.Try;
 import okhttp3.OkHttpClient;

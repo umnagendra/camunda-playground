@@ -1,4 +1,4 @@
-package xyz.nagendra.camundaplayground.tasks;
+package xyz.nagendra.camundaplayground.tasks.randomworkflow;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
