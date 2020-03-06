@@ -9,11 +9,24 @@ This is a simple spring boot app that illustrates the use of [Camunda BPM]() to 
 - MySQL as the persistence layer (data access via spring JPA)
 - REST API to trigger workflows, approve actions in workflows
 
-### Workflows 
-A simple BPMN workflow is created (using [Camunda Modeler]()) that has service tasks to obtain random numbers and check for even numbers.    
+### Workflows
+The below workflows are created (using [Camunda Modeler]()).
+
+#### Random Number Generation Workflow
+Has service tasks to obtain random numbers and check for even numbers.    
+If the generated random number is not even, the workflow moves to a wait-state until it receives a signal (approval) to get another random number.
+    
 See [random_workflow.bpmn](src/main/resources/random_workflow.bpmn)
 
 ![image](https://user-images.githubusercontent.com/990210/75753291-77fc1f00-5d50-11ea-9a45-ddda731d10bc.png)
+
+#### Scheduled Stock Quotes Email Workflow
+Has a periodic schedule that triggers a service task to get stock quotes for a set of symbols (using APIs from [alphavantage.co](https://www.alphavantage.co/)).
+The received stock quotes are transformed (in a subsequent task) into a HTML report and sent via email.
+
+See [stock_price_email_workflow.bpmn](src/main/resources/stock_price_email_workflow.bpmn)
+
+![image](https://user-images.githubusercontent.com/990210/76106651-4d82be00-5ffd-11ea-80ff-fe9e83d308d6.png)
 
 ## Build
 `mvn clean install`
