@@ -9,6 +9,16 @@
       "name": "stock.symbols",
       "type": "java.lang.String",
       "description": "Stock ticker symbols to get quotes for"
+    },
+    {
+      "name": "email.toAddresses",
+      "type": "java.lang.String",
+      "description": "Comma-separated list of valid email addresses to which the stock report will be sent"
+    },
+    {
+      "name": "email.replyTo",
+      "type": "java.lang.String",
+      "description": "Reply-To address for emails"
     }
   ]
 }
