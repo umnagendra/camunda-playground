@@ -8,11 +8,12 @@ This is a simple spring boot app that illustrates the use of [Camunda BPM]() to 
 - Embedded Camunda BPM engine
 - MySQL as the persistence layer (data access via spring JPA)
 - REST API to trigger workflows, approve actions in workflows
+- SMTP integration (with configured external SMTP service) to send emails
 
 ### Workflows
 The below workflows are created (using [Camunda Modeler]()).
 
-#### Random Number Generation Workflow
+#### 1. Random Number Generation Workflow
 Has service tasks to obtain random numbers and check for even numbers.    
 If the generated random number is not even, the workflow moves to a wait-state until it receives a signal (approval) to get another random number.
     
@@ -20,7 +21,9 @@ See [random_workflow.bpmn](src/main/resources/random_workflow.bpmn)
 
 ![image](https://user-images.githubusercontent.com/990210/75753291-77fc1f00-5d50-11ea-9a45-ddda731d10bc.png)
 
-#### Scheduled Stock Quotes Email Workflow
+- - -
+
+#### 2. Scheduled Stock Quotes Email Workflow
 Has a periodic schedule that triggers a service task to get stock quotes for a set of symbols (using APIs from [alphavantage.co](https://www.alphavantage.co/)).
 The received stock quotes are transformed (in a subsequent task) into a HTML report and sent via email.
 
@@ -37,9 +40,20 @@ Refer [Running MySQL as a Docker Container](#running-mysql-as-a-docker-container
 
 ```shell
 export SERVER_PORT=<port number where the server will listen for incoming REST API requests>
+
+# For camunda persistence and clustering
 export DB_HOST=<host where MySQL DB is running (could be localhost)>
 export DB_USERNAME=<db username>
 export DB_PASSWORD=<db password>
+
+# For email sending (Scheduled Stock Quotes Email Workflow)
+export EMAIL_SMTP_HOST=<Fully-qualified hostname of SMTP server>
+export EMAIL_USERNAME=<username in SMTP server>
+export EMAIL_PASSWORD=<password in SMTP server>
+export EMAIL_TO_ADDRESSES=<comma-separated list of valid email addresses to which the stock report will be sent>
+export EMAIL_REPLY_TO_ADDRESS=<Reply-To address for sent emails>
+
+# Run the damn app already!
 mvn spring-boot:run
 ```
 
