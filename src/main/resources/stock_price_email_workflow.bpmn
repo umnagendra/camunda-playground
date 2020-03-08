@@ -41,7 +41,7 @@
       <bpmn:incoming>SequenceFlow_0xq7wxb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0w6309c</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0ouinig">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P20S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT20S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0w6309c" name="Try Again" sourceRef="IntermediateThrowEvent_1608jxg" targetRef="Task_1xk4nh6" />
@@ -50,7 +50,7 @@
       <bpmn:incoming>SequenceFlow_00mg0e9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0653htq</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0r1to7r">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P20S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT20S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0653htq" name="Try Again" sourceRef="IntermediateThrowEvent_1rstvda" targetRef="Task_0rvtxgy" />
