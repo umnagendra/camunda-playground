@@ -1,5 +1,19 @@
 # camunda-playground
-Learning Camunda BPM
+Process workflows using Camunda BPM Engine
+
+- [Overview](#overview)
+- [Design](#design)
+    - [Workflows](#workflows)
+        - [1. Random Number Generation Workflow](#1-random-number-generation-workflow)
+        - [2. Scheduled Stock Quotes Email Workflow](#2-scheduled-stock-quotes-email-workflow)
+- [Build](#build)
+- [Run](#run)
+    - [APIs](#apis)
+        - [Start a workflow](#start-a-workflow)
+        - [Approve a workflow _(waiting to get another random number)_](#approve-a-workflow-_waiting-to-get-another-random-number_)
+        - [List (GET) all workflows](#list-get-all-workflows)
+    - [Running MySQL as a Docker Container](#running-mysql-as-a-docker-container)
+    - [Clustering](#clustering)
 
 ## Overview
 This is a simple spring boot app that illustrates the use of [Camunda BPM]() to execute workflows.
