@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1r4d69m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.6.0">
   <bpmn:process id="StockPriceEmailWorkflow" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1" name="Every 2 minutes" camunda:asyncBefore="true">
+    <bpmn:startEvent id="StartEvent_1" name="Every 5 minutes" camunda:asyncBefore="true">
       <bpmn:outgoing>SequenceFlow_1akd6ek</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0g5whbq">
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0/2 * * * ?</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0/5 * * * ?</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1akd6ek" sourceRef="StartEvent_1" targetRef="Task_0rvtxgy" />

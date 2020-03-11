@@ -50,7 +50,7 @@ public class WorkflowController {
         // process instance runs for each business key.
         // See https://forum.camunda.org/t/how-does-business-key-works/2170/5
         if (getProcessInstanceCount(workflowKey, businessKey) > 0) {
-            LOGGER.error("CONFLICT: Another active process instance with definition key = {}, business key = {} already exists in the system.",
+            LOGGER.error("CONFLICT: An active process instance with definition key = {}, business key = {} already exists in the system.",
                     workflowKey, businessKey);
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .contentType(MediaType.APPLICATION_JSON)
