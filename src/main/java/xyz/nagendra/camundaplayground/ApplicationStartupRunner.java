@@ -23,7 +23,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        LOGGER.info("Application is initialized. Starting default workflow ...");
+        LOGGER.info("Starting automatic default workflow (Process Definition = {}, Business Key = {} ...", WORKFLOW_KEY, BUSINESS_KEY);
 
         long existingProcessInstanceCount = getProcessInstanceCount(WORKFLOW_KEY, BUSINESS_KEY);
         LOGGER.info("Existing process instance count = {}", existingProcessInstanceCount );
