@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,13 +19,17 @@ import xyz.nagendra.camundaplayground.api.model.ApprovalRequest;
 import xyz.nagendra.camundaplayground.api.model.WorkflowRequest;
 import xyz.nagendra.camundaplayground.api.model.WorkflowResponse;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static xyz.nagendra.camundaplayground.Constants.*;
+import static xyz.nagendra.camundaplayground.Constants.TASK_ID_WAIT_APPROVAL;
+import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_APPROVED_BY;
+import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_STARTED_AT;
+import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_STARTED_BY;
 
 @RestController
 public class WorkflowController {
@@ -105,6 +111,31 @@ public class WorkflowController {
         List<ProcessInstance> processInstances = runtimeService.createProcessInstanceQuery().list();
         List<WorkflowResponse> workflowResponses = processInstances.stream().map(processInstance -> new WorkflowResponse(processInstance.getProcessDefinitionId().split(":")[0], processInstance.getBusinessKey(), !processInstance.isEnded())).collect(Collectors.toList());
         return ResponseEntity.ok(workflowResponses);
+    }
+
+    @DeleteMapping(value = "/workflow/{workflowKey}/{businessKey}")
+    public ResponseEntity<Object> deleteWorkflow(@NotNull @PathVariable String workflowKey, @PathVariable String businessKey) {
+        LOGGER.info("Received DELETE request to delete workflow with definition key = {}, business key = {}",
+                workflowKey, businessKey);
+
+        // first, we check if the specific process instance exists
+        if (getProcessInstanceCount(workflowKey, businessKey) == 0) {
+            LOGGER.error("NOT FOUND: No active process instance found with definition key = {}, business key = {}",
+                    workflowKey, businessKey);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("{\"status\": \"not found\"}");
+        }
+
+        // get the ID of this process instance
+        ProcessInstance processInstance = getActiveProcessInstance(workflowKey, businessKey);
+        String pid = processInstance.getProcessInstanceId();
+
+        // delete process instance
+        LOGGER.info("Deleting process instance with ID {} ...", pid);
+        runtimeService.deleteProcessInstance(pid, "DELETED BY API REQUEST");
+
+        return ResponseEntity.ok().build();
     }
 
     private Map<String, Object> createProcessVariables(WorkflowRequest workflowRequest) {

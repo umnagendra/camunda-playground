@@ -12,6 +12,7 @@ Process workflows using Camunda BPM Engine
         - [Start a workflow](#start-a-workflow)
         - [Approve a workflow _(waiting to get another random number)_](#approve-a-workflow-_waiting-to-get-another-random-number_)
         - [List (GET) all workflows](#list-get-all-workflows)
+        - [Delete a workflow](#delete-a-workflow)
     - [Running MySQL as a Docker Container](#running-mysql-as-a-docker-container)
     - [Clustering](#clustering)
 
@@ -121,6 +122,9 @@ Simply do a `GET` to `http://<host>:<port>/workflow` and expect a JSON response.
 ]
 ```
 
+#### Delete a workflow
+Simply do a `DELETE` to `http://<host>:<port>/workflow/{workflowKey}/{businessKey}` to delete a specific active workflow.
+ 
 ### Running MySQL as a Docker Container
 ```
 docker rm -f mysql && \
