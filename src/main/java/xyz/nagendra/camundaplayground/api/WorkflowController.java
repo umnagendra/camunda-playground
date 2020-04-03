@@ -26,8 +26,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static xyz.nagendra.camundaplayground.Constants.FINISH_WAIT_PERIOD_MS;
 import static xyz.nagendra.camundaplayground.Constants.TASK_ID_WAIT_APPROVAL;
 import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_APPROVED_BY;
+import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_FINISH_AT;
 import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_STARTED_AT;
 import static xyz.nagendra.camundaplayground.Constants.VAR_NAME_STARTED_BY;
 
@@ -142,6 +144,7 @@ public class WorkflowController {
         Map<String, Object> varMap = new HashMap<>();
         varMap.put(VAR_NAME_STARTED_BY, workflowRequest.getStartedBy());
         varMap.put(VAR_NAME_STARTED_AT, LocalDateTime.now());
+        varMap.put(VAR_NAME_FINISH_AT, System.currentTimeMillis() + FINISH_WAIT_PERIOD_MS);
         return varMap;
     }
 
