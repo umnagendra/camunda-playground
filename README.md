@@ -6,6 +6,7 @@ Process workflows using Camunda BPM Engine
     - [Workflows](#workflows)
         - [1. Random Number Generation Workflow](#1-random-number-generation-workflow)
         - [2. Scheduled Stock Quotes Email Workflow](#2-scheduled-stock-quotes-email-workflow)
+        - [3. Wait Until Workflow](#3-wait-until-workflow)
 - [Build](#build)
 - [Run](#run)
     - [APIs](#apis)
@@ -45,6 +46,15 @@ The received stock quotes are transformed (in a subsequent task) into a HTML rep
 See [stock_price_email_workflow.bpmn](src/main/resources/stock_price_email_workflow.bpmn)
 
 ![image](https://user-images.githubusercontent.com/990210/76106651-4d82be00-5ffd-11ea-80ff-fe9e83d308d6.png)
+
+- - -
+
+#### 3. Wait Until Workflow
+This workflow waits until a specific point in time is crossed before proceeding. The workflow periodically waits and checks if it has crossed the point in time. If it has, it proceeds, else it goes back to waiting.
+
+See [wait_until_workflow.bpmn](src/main/resources/wait_until_workflow.bpmn)
+
+![image](https://user-images.githubusercontent.com/990210/78370097-d2a0c900-75e3-11ea-9533-2bd186623a24.png)
 
 ## Build
 `mvn clean install`
