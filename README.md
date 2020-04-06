@@ -55,7 +55,7 @@ This workflow also illustrates the use of a [Script Task](https://docs.camunda.o
 
 See [wait_until_workflow.bpmn](src/main/resources/wait_until_workflow.bpmn)
 
-![image](https://user-images.githubusercontent.com/990210/78370097-d2a0c900-75e3-11ea-9533-2bd186623a24.png)
+![image](https://user-images.githubusercontent.com/990210/78546634-5db7d400-781b-11ea-8760-224c2d5bf120.png)
 
 ## Build
 `mvn clean install`
