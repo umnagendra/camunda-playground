@@ -50,7 +50,8 @@ See [stock_price_email_workflow.bpmn](src/main/resources/stock_price_email_workf
 - - -
 
 #### 3. Wait Until Workflow
-This workflow waits until a specific point in time is crossed before proceeding. The workflow periodically waits and checks if it has crossed the point in time. If it has, it proceeds, else it goes back to waiting.
+This workflow waits until a specific point in time is crossed before proceeding. The workflow periodically waits and checks if it has crossed the point in time. If it has, it proceeds, else it goes back to waiting.    
+This workflow also illustrates the use of a [Script Task](https://docs.camunda.org/manual/7.12/reference/bpmn20/tasks/script-task/) (implemented in javascript) to compute and log the time to continue waiting before the workflow can proceed.
 
 See [wait_until_workflow.bpmn](src/main/resources/wait_until_workflow.bpmn)
 
