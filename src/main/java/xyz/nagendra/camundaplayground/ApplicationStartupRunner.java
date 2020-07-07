@@ -34,7 +34,9 @@ public class ApplicationStartupRunner implements CommandLineRunner {
             return;
         }
 
-        runtimeService.startProcessInstanceByKey(WORKFLOW_KEY, BUSINESS_KEY);
+        // COMMENTED THIS OUT BECAUSE IT WILL RUN EVERY 10 MINUTES AND FAIL BECAUSE OF SOME
+        // ERRORS FROM THE STOCK API and EMAIL SENDER SERVICE
+        // runtimeService.startProcessInstanceByKey(WORKFLOW_KEY, BUSINESS_KEY);
     }
 
     private long getProcessInstanceCount(String workflowKey, String businessKey) {
