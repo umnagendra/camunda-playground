@@ -19,7 +19,6 @@ import xyz.nagendra.camundaplayground.api.model.ApprovalRequest;
 import xyz.nagendra.camundaplayground.api.model.WorkflowRequest;
 import xyz.nagendra.camundaplayground.api.model.WorkflowResponse;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -116,7 +115,7 @@ public class WorkflowController {
     }
 
     @DeleteMapping(value = "/workflow/{workflowKey}/{businessKey}")
-    public ResponseEntity<Object> deleteWorkflow(@NotNull @PathVariable String workflowKey, @PathVariable String businessKey) {
+    public ResponseEntity<Object> deleteWorkflow(@PathVariable String workflowKey, @PathVariable String businessKey) {
         LOGGER.info("Received DELETE request to delete workflow with definition key = {}, business key = {}",
                 workflowKey, businessKey);
 
